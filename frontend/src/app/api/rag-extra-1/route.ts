@@ -1,23 +1,20 @@
 /**
  * RAG extra用のAPIルート
  */
-import { NextRequest } from 'next/dist/server/web/spec-extension/request';
-import { NextResponse } from 'next/dist/server/web/spec-extension/response';
-import { getBase64File } from '../../../util/extra-1/blob';
-import { getItemsByVector } from '../../../util/extra-1/cosmos';
+import { getBase64File } from '@/util/extra-1/blob';
+import { getItemsByVector } from '@/util/extra-1/cosmos';
 import {
   getChatCompletions,
   getEmbedding,
-} from '../../../util/extra-1/openai-extra-shrkm';
+} from '@/util/extra-1/openai-extra-shrkm';
+import { NextRequest } from 'next/dist/server/web/spec-extension/request';
+import { NextResponse } from 'next/dist/server/web/spec-extension/response';
 
 export const POST = async (req: NextRequest) => {
   try {
     const { message } = await req.json();
 
     console.log('🚀RAG-extra用のAPIルート');
-
-    // messageを検索するための文章に変換
-    // 未実装
 
     // ベクトル化
     console.log('🚀Get embedding from Azure OpenAI.');
