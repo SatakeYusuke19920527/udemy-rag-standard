@@ -27,9 +27,6 @@ export const POST = async (req: NextRequest) => {
     console.log('🚀Search vector from Azure CosmosDB.');
     const cosmosItems = await getItemsByVector(embeddedMessage);
 
-    // CosmosDBのベクトル検索で精度が出ない場合は、AISearchを使ったセマンティック検索などを使う　※仮実装
-    // const searchResults = await searchHybrid(message, embeddedMessage);
-
     // systemMessageにRAGの情報を追加
     console.log('🚀Create system message and image_content.');
     let systemMessage =
@@ -55,9 +52,6 @@ export const POST = async (req: NextRequest) => {
     // OpenAI へのリクエスト
     const result = await getChatCompletions(systemMessage, message, images);
     let aiMessage = result[0].message.content;
-
-    // 推論結果に参照ドキュメント番号付与 (option)
-    // 未実装
 
     return NextResponse.json({ aiMessage }, { status: 200 });
   } catch (error: any) {

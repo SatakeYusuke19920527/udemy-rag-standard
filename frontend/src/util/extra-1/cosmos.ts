@@ -12,7 +12,7 @@ export const getItemsByVector = async (embedding: number[]): Promise<any[]> => {
     const { resources } = await container.items
       .query({
         query:
-          'SELECT c.file_name, c.content, c.is_contain_image, c.image_blob_path, VectorDistance(c.content_vector, @embedding) AS SimilarityScore FROM c WHERE VectorDistance(c.content_vector, @embedding) > 0.50 ORDER BY VectorDistance(c.content_vector, @embedding)',
+          'SELECT TOP 10 c.file_name, c.content, c.is_contain_image, c.image_blob_path, VectorDistance(c.content_vector, @embedding) AS SimilarityScore FROM c WHERE VectorDistance(c.content_vector, @embedding) > 0.50 ORDER BY VectorDistance(c.content_vector, @embedding)',
         parameters: [{ name: '@embedding', value: embedding }],
       })
       .fetchAll();
